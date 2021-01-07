@@ -15,7 +15,12 @@ public class NeteaseCloudMusicInfo extends AbstractMusic{
          */
         super.setMusicEnum(MusicEnum.NeteaseCloudMusic);
     }
-
+    @MusicService(url = "/search")
+    public JSONObject search(JSONObject parameter) {
+        setCurrentRunningMethod("search");
+        setParameter(parameter);
+        return getResult();
+    }
     @MusicService(url = "/search/hot")
     public JSONObject searchHot() {
         setCurrentRunningMethod("searchHot");

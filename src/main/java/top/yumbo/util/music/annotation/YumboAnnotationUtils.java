@@ -8,6 +8,7 @@ import top.yumbo.util.music.musicAbstract.AbstractMusic;
 import top.yumbo.util.music.musicImpl.netease.NeteaseCloudMusicInfo;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Map;
 
 public class YumboAnnotationUtils {
@@ -32,29 +33,39 @@ public class YumboAnnotationUtils {
         if (obj instanceof AbstractMusic) {
             AbstractMusic abstractMusic = (AbstractMusic) obj; // 强转
             final String currentRunningMethod = abstractMusic.getCurrentRunningMethod();// 获取当前调用的是那个方法
-            try {
-                final Method method = clazz.getMethod(currentRunningMethod); // 获取正在调用的那个方法
-                final MusicService annotation = method.getAnnotation(MusicService.class);// 获取方法上的注解信息
-                if (annotation != null) { // 注解不为null则继续获取注解上的url信息
-                    final String url = annotation.url(); // 得到注解上的url
-                    final String fullPathURL = ((NeteaseCloudMusicInfo) obj).musicEnum.getFullPathURL(url); // 通过枚举获取完整的url访问路径
-                    if (abstractMusic.getParameter() == null) {
-                        abstractMusic.setParameter(new JSONObject());
-                    }
-                    // 设置请求头
-                    final HttpHeaders httpHeaders = new HttpHeaders();
-                    httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-                    final HttpEntity<String> stringHttpEntity = new HttpEntity<String>(abstractMusic.getParameter().toJSONString(), httpHeaders);
-                    System.out.println("当前执行:"+clazz.toString()+"."+method.getName()+"()\n请求的相对路径:"+url);
-                    // 发送请求得到返回来的数据
-                    final ResponseEntity<String> responseEntity = new RestTemplate().exchange(fullPathURL, HttpMethod.POST, stringHttpEntity, String.class);
-                    abstractMusic.setResult(JSONObject.parseObject(responseEntity.getBody()));// 直接替换
-                    abstractMusic.setParameter(null);// 清除参数
-                }
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+            Method method = null;
 
+            final Method[] methods = clazz.getMethods();
+            for (Method m : methods) {
+                System.out.println(m.getName());
+                if (m.getName().equals(currentRunningMethod)) {
+                    method = m;// 找到对应的方法
+                }
+            }
+            if (method == null) {
+                try {
+                    throw new NoSuchMethodException();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+            final MusicService annotation = method.getAnnotation(MusicService.class);// 获取方法上的注解信息
+            if (annotation != null) { // 注解不为null则继续获取注解上的url信息
+                final String url = annotation.url(); // 得到注解上的url
+                final String fullPathURL = ((NeteaseCloudMusicInfo) obj).musicEnum.getFullPathURL(url); // 通过枚举获取完整的url访问路径
+                if (abstractMusic.getParameter() == null) {
+                    abstractMusic.setParameter(new JSONObject());
+                }
+                // 设置请求头
+                final HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                final HttpEntity<String> stringHttpEntity = new HttpEntity<String>(abstractMusic.getParameter().toJSONString(), httpHeaders);
+                System.out.println("当前执行:" + clazz.toString() + "." + method.getName() + "()\n请求的相对路径:" + url);
+                // 发送请求得到返回来的数据
+                final ResponseEntity<String> responseEntity = new RestTemplate().exchange(fullPathURL, HttpMethod.POST, stringHttpEntity, String.class);
+                abstractMusic.setResult(JSONObject.parseObject(responseEntity.getBody()));// 直接替换
+                abstractMusic.setParameter(null);// 清除参数
+            }
         }
 
 
