@@ -8,8 +8,7 @@ import top.yumbo.util.music.musicAbstract.AbstractMusic;
 import top.yumbo.util.music.musicImpl.netease.NeteaseCloudMusicInfo;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class YumboAnnotationUtils {
 
@@ -37,7 +36,6 @@ public class YumboAnnotationUtils {
 
             final Method[] methods = clazz.getMethods();
             for (Method m : methods) {
-//                System.out.println(m.getName());
                 if (m.getName().equals(currentRunningMethod)) {
                     method = m;// 找到对应的方法
                 }
@@ -59,12 +57,25 @@ public class YumboAnnotationUtils {
                 // 设置请求头
                 final HttpHeaders httpHeaders = new HttpHeaders();
                 httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                String cookie = abstractMusic.getCookieString();
+                if (cookie == null) {
+                    cookie = "[]";
+                }
+                httpHeaders.add("COOKIE", cookie);
                 final HttpEntity<String> stringHttpEntity = new HttpEntity<String>(abstractMusic.getParameter().toJSONString(), httpHeaders);
                 System.out.println("当前执行:" + clazz.toString() + "." + method.getName() + "()\n请求的相对路径:" + url);
                 // 发送请求得到返回来的数据
-                final ResponseEntity<String> responseEntity = new RestTemplate().exchange(fullPathURL, HttpMethod.POST, stringHttpEntity, String.class);
-                abstractMusic.setResult(JSONObject.parseObject(responseEntity.getBody()));// 直接替换
-                abstractMusic.setParameter(null);// 清除参数
+                try {
+                    final ResponseEntity<String> responseEntity = new RestTemplate().exchange(fullPathURL, HttpMethod.POST, stringHttpEntity, String.class);
+                    final HttpHeaders headers = responseEntity.getHeaders();
+                    final String cookieString = parseSetCookie(headers.get("set-cookie").toString());
+                    abstractMusic.setCookieString(cookieString); // 将cookie保存
+                    abstractMusic.setResult(JSONObject.parseObject(responseEntity.getBody()));// 直接替换
+                    abstractMusic.setParameter(null);// 清除参数
+                } catch (Exception e) {
+
+                }
+
             }
         }
 
@@ -94,5 +105,18 @@ public class YumboAnnotationUtils {
         source.putAll(map);// 添加到原先的对象中
     }
 
+    /**
+     * 解析set-Cookie,去除过期时间等无关信息
+     */
+    private static String parseSetCookie(String setCookie) {
+        System.out.println("解析前cookie是"+setCookie);
+        final String[] split = setCookie.split(";, ");
+        final Optional<String> cookieStringOptional = Arrays.stream(split).map(x -> {
+            return x.split(";")[0] + "; ";
+        }).reduce((x, y) -> x + y);
+        String cookieString = cookieStringOptional.get() + "]";
+        System.out.println("解析后cookie是:"+ cookieString);
+        return cookieString;
+    }
 
 }
