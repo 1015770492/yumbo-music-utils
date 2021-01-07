@@ -32,7 +32,7 @@ public class NeteaseCloudMusicDemo {
 //        System.out.println(logout);
         final JSONObject jsonObject1 = neteaseCloudMusicInfo.yunbeiInfo();
         System.out.println(jsonObject1);
-        final JSONObject jsonObject2 = neteaseCloudMusicInfo.yunbeiInfo();
+        final JSONObject jsonObject2 = neteaseCloudMusicInfo.searchHot();
         System.out.println(jsonObject2);
 //        String str = "[__csrf=a477072e738bf52da6a3d801fc5f3a47; Max-Age=1296010; Expires=Fri, 22 Jan 2021 18:39:15 GMT; Path=/;, __remember_me=true; Max-Age=1296000; Expires=Fri, 22 Jan 2021 18:39:05 GMT; Path=/;, NMTID=00OvgEvVmJMiskHd0_Fo-XEgTr10ccAAAF23iUnxg; Max-Age=315360000; Expires=Sun, 5 Jan 2031 18:39:05 GMT; Path=/;, MUSIC_U=7b27b6de49d6e80338be47f8ffeb967f298c85f75f738dd735af463ef19d96830931c3a9fbfe3df2; Max-Age=1296000; Expires=Fri, 22 Jan 2021 18:39:05 GMT; Path=/;]";
 

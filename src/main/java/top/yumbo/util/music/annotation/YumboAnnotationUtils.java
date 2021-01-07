@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import top.yumbo.util.music.MusicEnum;
 import top.yumbo.util.music.musicAbstract.AbstractMusic;
 import top.yumbo.util.music.musicImpl.netease.NeteaseCloudMusicInfo;
 
@@ -11,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class YumboAnnotationUtils {
+
 
     /**
      * 发送请求并且注入json对象
@@ -50,7 +52,8 @@ public class YumboAnnotationUtils {
             final MusicService annotation = method.getAnnotation(MusicService.class);// 获取方法上的注解信息
             if (annotation != null) { // 注解不为null则继续获取注解上的url信息
                 final String url = annotation.url(); // 得到注解上的url
-                final String fullPathURL = ((NeteaseCloudMusicInfo) obj).musicEnum.getFullPathURL(url); // 通过枚举获取完整的url访问路径
+                final MusicEnum musicEnum = annotation.serviceProvider(); // 通过注解获取到枚举对象
+                final String fullPathURL = musicEnum.getFullPathURL(url);// 获取完整的路径
                 if (abstractMusic.getParameter() == null) {
                     abstractMusic.setParameter(new JSONObject());
                 }
@@ -59,21 +62,28 @@ public class YumboAnnotationUtils {
                 httpHeaders.setContentType(MediaType.APPLICATION_JSON);
                 String cookie = abstractMusic.getCookieString();
                 if (cookie == null) {
-                    cookie = "[]";
+                    cookie = "";
                 }
-                httpHeaders.add("COOKIE", cookie);
+                httpHeaders.add(HttpHeaders.COOKIE, cookie);
                 final HttpEntity<String> stringHttpEntity = new HttpEntity<String>(abstractMusic.getParameter().toJSONString(), httpHeaders);
                 System.out.println("当前执行:" + clazz.toString() + "." + method.getName() + "()\n请求的相对路径:" + url);
                 // 发送请求得到返回来的数据
                 try {
+                    System.out.println("绝对路径:" + fullPathURL);
                     final ResponseEntity<String> responseEntity = new RestTemplate().exchange(fullPathURL, HttpMethod.POST, stringHttpEntity, String.class);
-                    final HttpHeaders headers = responseEntity.getHeaders();
-                    final String cookieString = parseSetCookie(headers.get("set-cookie").toString());
-                    abstractMusic.setCookieString(cookieString); // 将cookie保存
                     abstractMusic.setResult(JSONObject.parseObject(responseEntity.getBody()));// 直接替换
-                    abstractMusic.setParameter(null);// 清除参数
-                } catch (Exception e) {
+                    final HttpHeaders headers = responseEntity.getHeaders();
+                    if (headers != null) {
+                        final List<String> setCookie = headers.get("set-cookie");
+                        if (setCookie != null) {
+                            final String cookieString = parseSetCookie(setCookie.toString());
+                            abstractMusic.setCookieString(cookieString); // 将cookie保存
+                            abstractMusic.setParameter(null);// 清除参数
+                        }
+                    }
 
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -109,13 +119,16 @@ public class YumboAnnotationUtils {
      * 解析set-Cookie,去除过期时间等无关信息
      */
     private static String parseSetCookie(String setCookie) {
-        System.out.println("解析前cookie是"+setCookie);
+        if (setCookie == null) {
+            return "";
+        }
+        System.out.println("解析前cookie是" + setCookie);
         final String[] split = setCookie.split(";, ");
         final Optional<String> cookieStringOptional = Arrays.stream(split).map(x -> {
             return x.split(";")[0] + "; ";
         }).reduce((x, y) -> x + y);
         String cookieString = cookieStringOptional.get() + "]";
-        System.out.println("解析后cookie是:"+ cookieString);
+        System.out.println("解析后cookie是:" + cookieString);
         return cookieString;
     }
 

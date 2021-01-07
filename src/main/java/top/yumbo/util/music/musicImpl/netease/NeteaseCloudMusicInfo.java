@@ -3044,8 +3044,9 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
 
 
 
+
     /**
-     * 执行反射发送请求将返回的数据注入到result中
+     * 执封装get方法,因为每一个方法都需要发请求返回json数据,为了实现懒加载这里将反射操作放在了get方法中
      */
     @Override
     public JSONObject getResult() {
