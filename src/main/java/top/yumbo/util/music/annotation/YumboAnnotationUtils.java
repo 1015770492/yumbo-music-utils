@@ -37,7 +37,7 @@ public class YumboAnnotationUtils {
 
             final Method[] methods = clazz.getMethods();
             for (Method m : methods) {
-                System.out.println(m.getName());
+//                System.out.println(m.getName());
                 if (m.getName().equals(currentRunningMethod)) {
                     method = m;// 找到对应的方法
                 }
