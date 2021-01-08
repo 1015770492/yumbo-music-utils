@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.yumbo</groupId>
-    <artifactId>yumbo-music-spider</artifactId>
+    <artifactId>yumbo-music-utils</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
