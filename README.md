@@ -23,7 +23,7 @@ spring-web、lombok、fastjson
 </dependency>
 ```
 
-写了部分测试代码,在 `top.yumbo.util.NeteaseCloudMusicDemo` 和 ` `top.yumbo.util.QQMusicDemo` 
+写了部分测试代码,在 `top.yumbo.util.NeteaseCloudMusicDemo` 、 `top.yumbo.util.QQMusicDemo` 中
 
 整体的使用方式是
 创建我封装好的工具类 NeteaseCloudMusicInfo 或 QQMusicInfo
