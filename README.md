@@ -1,4 +1,27 @@
-### 已经封装号网易云音乐api和QQ音乐api
+### 已经封装号网易云音乐api和QQ音乐api 的所有API，只需要调用我封装好的类就可以快捷调用文档获取数据
+本项目中使用到的依赖：
+spring-web、lombok、fastjson
+```xml
+<!-- spring-web依赖，这个工具需要使用里面的RestTemplate工具 -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-web</artifactId>
+    <version>5.3.2</version>
+</dependency>
+<!-- fastjson 工具类 -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.75</version>
+</dependency>
+<!-- lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.16</version>
+    <scope>provided</scope>
+</dependency>
+```
 
 写了部分测试代码,在 `top.yumbo.util.NeteaseCloudMusicDemo` 和 ` `top.yumbo.util.QQMusicDemo` 
 
