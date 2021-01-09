@@ -149,3 +149,67 @@ public class QQMusicDemo {
 绝对路径:http://yumbo.top:3300/user/songlist
 {"result":100,"data":{"creator":{"hostname":"诗水人间","encrypt_uin":"oKn57KSloevqoc**","hostuin":1015770492},"list":[{"dir_show":0,"diss_cover":"http://y.gtimg.cn/mediastyle/y/img/cover_qzone_130.jpg","listen_num":0,"song_cnt":4,"dirid":205,"diss_name":"QZone背景音乐","tid":0},{"dir_show":1,"diss_cover":"http://y.gtimg.cn/music/photo_new/T002R300x300M000002G0Sch2tMqsl.jpg?n=1","listen_num":0,"song_cnt":39,"dirid":6,"diss_name":"轻音乐","tid":7719446085},{"dir_show":1,"diss_cover":"","listen_num":0,"song_cnt":0,"dirid":5,"diss_name":"我的精选歌单 日文","tid":7719443258},{"dir_show":1,"diss_cover":"http://y.gtimg.cn/music/photo_new/T002R300x300M000003BxlGH4H7dNb.jpg?n=1","listen_num":0,"song_cnt":57,"dirid":4,"diss_name":"我的精选歌单 英文","tid":7719441619},{"dir_show":1,"diss_cover":"http://y.gtimg.cn/music/photo_new/T002R300x300M000004Xx5GF3J1lbP.jpg?n=1","listen_num":0,"song_cnt":39,"dirid":3,"diss_name":"我的精选歌单 中文","tid":7719439673},{"dir_show":1,"diss_cover":"http://y.gtimg.cn/music/photo_new/T002R300x300M00000393o7q382rG3.jpg?n=1","listen_num":39,"song_cnt":14,"dirid":2,"diss_name":"博客背景音乐推荐","tid":7546765303},{"dir_show":1,"diss_cover":"http://qpic.y.qq.com/music_cover/7X3pOwusyHqcIMRWc4eanpib2eK1oJ8HwNLgd4CUzOHichIEd5arBKnA/300?n=1","listen_num":19,"song_cnt":583,"dirid":1,"diss_name":"我收藏的歌曲","tid":7071969614}]}}
 ```
+
+***
+### 自定义音乐
+引入项目依赖
+
+参考我给的一个模板类：OtherMusicInfo，实现自定义音乐
+#### 模板：定义接口的封装类
+```java
+import com.alibaba.fastjson.JSONObject;
+import top.yumbo.util.music.MusicEnum;
+import top.yumbo.util.music.annotation.MusicService;
+import top.yumbo.util.music.annotation.YumboAnnotationUtils;
+import top.yumbo.util.music.musicAbstract.AbstractMusic;
+
+/**
+ * 这是一个其它音乐的实例代码
+ */
+
+public class OtherMusicInfo extends AbstractMusic {
+    {
+        setMusicEnum(MusicEnum.OtherMusic);
+    }
+    @Override
+    public JSONObject getResult() {
+        YumboAnnotationUtils.sendRequestAutowiredJson(this);
+        return super.getResult();
+    }
+
+    /**
+     * 有参数的接口，传入的是json，返回的也是json
+     */
+    @MusicService(url = "/has/parameter/method",serverAddress = "http://com.example:6666")
+    public JSONObject hasParameterMethod(JSONObject parameter){
+        setCurrentRunningMethod("hasParameterMethod");
+        setParameter(parameter);// 将参数保存
+        return getResult();
+    }
+
+    /**
+     * 无参的构造方法
+     */
+    @MusicService(url = "/no/parameter/method",serverAddress = "http://com.example:6666")
+    public JSONObject noParameterMethod(){
+        setCurrentRunningMethod("noParameterMethod");
+        // 不需要传参
+        return getResult();
+    }
+}
+```
+#### 使用案例：
+```java
+import com.alibaba.fastjson.JSONObject;
+import top.yumbo.util.music.musicImpl.other.OtherMusicInfo;
+
+public class OtherMusicDemo {
+
+    public static void main(String[] args) {
+        final OtherMusicInfo otherMusicInfo = new OtherMusicInfo();
+        final JSONObject jsonObject = otherMusicInfo.noParameterMethod();// 调用方法得到数据
+        System.out.println(jsonObject);
+    }
+
+}
+```
