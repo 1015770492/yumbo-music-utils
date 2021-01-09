@@ -13,8 +13,9 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD,ElementType.METHOD}) // 注解在局部变量中使用,以及字段使用
 public @interface MusicService {
     @AliasFor("value")
-    String url() default "";
-    @AliasFor("url")
-    String value() default "";
-    MusicEnum serviceProvider() default MusicEnum.NeteaseCloudMusic;// 默认是网易云音乐
+    String url() default "";// 这个url是相对路径，服务器地址需要通过枚举得到
+//    @AliasFor("url")
+//    String value() default "";
+
+    String serverAddress() default "";// 其它音乐服务
 }

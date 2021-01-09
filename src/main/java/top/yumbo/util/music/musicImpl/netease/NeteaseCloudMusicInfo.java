@@ -6,18 +6,27 @@ import top.yumbo.util.music.annotation.MusicService;
 import top.yumbo.util.music.annotation.YumboAnnotationUtils;
 import top.yumbo.util.music.musicAbstract.AbstractMusic;
 
-
+/**
+ * url是相对路径
+ */
 public class NeteaseCloudMusicInfo extends AbstractMusic {
 
+    /**
+     * 非静态代码块，构建实例对象的时候就会复制一遍，方便并发的处理（用空间换效率）
+     * 每次需要使用到这个服务都创建一个这样的对象
+     * 设置当前音乐为枚举网易云音乐
+     */
     {
-        /**
-         * 非静态代码块，构建实例对象的时候就会复制一遍，方便并发的处理（用空间换效率）
-         * 每次需要使用到这个服务都创建一个这样的对象
-         * 设置当前音乐为枚举网易云音乐
-         */
         super.setMusicEnum(MusicEnum.NeteaseCloudMusic);
     }
-
+    /**
+     * 执封装get方法,因为每一个方法都需要发请求返回json数据,为了实现懒加载这里将反射操作放在了get方法中
+     */
+    @Override
+    public JSONObject getResult() {
+        YumboAnnotationUtils.sendRequestAutowiredJson(this); // 调用反射发送请求注入数据通过下面的return返回
+        return super.getResult();
+    }
     /**
      * 手机登录
      * <p>
@@ -3045,12 +3054,5 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
 
 
 
-    /**
-     * 执封装get方法,因为每一个方法都需要发请求返回json数据,为了实现懒加载这里将反射操作放在了get方法中
-     */
-    @Override
-    public JSONObject getResult() {
-        YumboAnnotationUtils.sendRequestAutowiredJson(this); // 调用反射发送请求注入数据通过下面的return返回
-        return super.getResult();
-    }
+
 }

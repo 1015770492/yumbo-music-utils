@@ -3,13 +3,63 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>top.yumbo</groupId>
+    <!--当前项目的gav坐标-->
+    <groupId>top.yumbo.music</groupId>
     <artifactId>yumbo-music-utils</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>jar</packaging><!--打包方式 jar/war/pom-->
+    <name>yumbo-music-utils</name><!--项目名称-->
+    <description>netease-cloud-music and qq-music api-utils</description>
+    <properties>
+        <!--
+        这个值就是git clone 后面部分从github直接复制过来的.git路径，
+        实际就是项目地址加上 .git
+        -->
+        <projectUrl>https://github.com/1015770492/yumbo-music-utils.git</projectUrl>
+        <serverId>ossrh</serverId><!-- 服务id -->
+    </properties>
+
+    <!--填入开发者信息，姓名、邮箱、项目地址-->
+    <developers>
+        <developer>
+            <name>yujinhua</name>
+            <email>1015770492@qq.com</email>
+            <url>${projectUrl}</url>
+        </developer>
+    </developers>
+    <!--以下部分内容不需要修改，直接复制咱贴即可-->
+    <url>${projectUrl}</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo,manual</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <!-- 采用projectUrl变量代替这个值，方便给重复利用这个配置，也就是上面的标签替换一下值就行 -->
+        <connection>${projectUrl}</connection>
+        <developerConnection>${projectUrl}</developerConnection>
+        <url>${projectUrl}</url>
+    </scm>
+    <distributionManagement>
+        <snapshotRepository>
+            <!--这个id和settings.xml中servers.server.id要相同，因为上传jar需要登录才有权限-->
+            <id>${serverId}</id>
+            <name>OSS Snapshots Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <!--这个id和settings.xml中servers.server.id要相同，因为上传jar需要登录才有权限-->
+            <id>${serverId}</id>
+            <name>OSS Staging Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
+            <!-- 编译插件，设置源码以及编译的jdk版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -18,16 +68,53 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+            <!-- Javadoc 文档生成插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <!-- 忽略生成文档中的错误 -->
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <aggregate>true</aggregate>
+                    <charset>UTF-8</charset><!-- utf-8读取文件 -->
+                    <encoding>UTF-8</encoding><!-- utf-8进行编码代码 -->
+                    <docencoding>UTF-8</docencoding><!-- utf-8进行编码文档 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--公钥私钥插件，也就是上传需要进行验证用户名和密码过程中需要用到的插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
+    <!--以上部分都不需要进行修改-->
     <dependencies>
-        <!-- 爬虫框架jsoup -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.13.1</version>
-        </dependency>
+        <!--        &lt;!&ndash; 爬虫框架jsoup &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.jsoup</groupId>-->
+        <!--            <artifactId>jsoup</artifactId>-->
+        <!--            <version>1.13.1</version>-->
+        <!--        </dependency>-->
         <!-- spring-web依赖，这个工具需要使用里面的RestTemplate工具 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -49,5 +136,6 @@
         </dependency>
 
     </dependencies>
+
 
 </project>

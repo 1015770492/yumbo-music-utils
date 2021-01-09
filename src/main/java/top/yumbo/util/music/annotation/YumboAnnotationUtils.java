@@ -21,7 +21,7 @@ public class YumboAnnotationUtils {
      */
     public static void sendRequestAutowiredJson(Object obj) {
         if (obj == null) {
-            throw new NullPointerException("json对象不能为null");
+            throw new NullPointerException("封装对象不能为null");
         }
         /**
          * 反射操作,获取url,注入json对象
@@ -52,9 +52,17 @@ public class YumboAnnotationUtils {
             final MusicService annotation = method.getAnnotation(MusicService.class);// 获取方法上的注解信息
             if (annotation != null) { // 注解不为null则继续获取注解上的url信息
                 final String url = annotation.url(); // 得到注解上的url
-                final MusicEnum musicEnum = annotation.serviceProvider(); // 通过注解获取到枚举对象
-                final String fullPathURL = musicEnum.getFullPathURL(url);// 获取完整的路径
-                if (abstractMusic.getParameter() == null) {
+                final MusicEnum musicEnum = abstractMusic.getMusicEnum();
+
+                final String fullPathURL;
+                if (musicEnum == MusicEnum.OtherMusic) {
+                    final String serverAddress = annotation.serverAddress();
+                    fullPathURL = MusicEnum.OtherMusic.getFullPathURL(serverAddress, url);
+                } else {
+                    fullPathURL = musicEnum.getFullPathURL(null, url);// 获取完整的路径
+                }
+
+                if (abstractMusic.getParameter() == null) {// 处理没有参数的方法
                     abstractMusic.setParameter(new JSONObject());
                 }
                 // 设置请求头
