@@ -1,4 +1,5 @@
 ### 已经封装好网易云音乐api和QQ音乐api 的所有API，只需要调用我封装好的类就可以快捷调用文档获取数据
+### 项目说明：
 本项目中使用到的依赖：
 spring-web、lombok、fastjson
 ```xml
@@ -23,14 +24,17 @@ spring-web、lombok、fastjson
 </dependency>
 ```
 
-写了部分测试代码,在 `top.yumbo.util.NeteaseCloudMusicDemo` 、 `top.yumbo.util.QQMusicDemo` 中
+### 第一步、引入maven依赖
+gav坐标如下
+```xml
+<dependency>
+  <groupId>top.yumbo.music</groupId>
+  <artifactId>yumbo-music-utils</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+### 第二步、使用NeteaseCloudMusicInfo类和 QQMusicInfo类调用封装好的方法
 
-整体的使用方式是
-创建我封装好的工具类 NeteaseCloudMusicInfo 或 QQMusicInfo
-```
-top.yumbo.util.music.musicImpl.netease.NeteaseCloudMusicInfo
-top.yumbo.util.music.musicImpl.qq.QQMusicInfo
-```
 #### NeteaseCloudMusicInfo类和 QQMusicInfo类的特点
 根据音乐api文档进行的封装
 ***
@@ -118,6 +122,7 @@ public class NeteaseCloudMusicDemo {
 ```
 
 ***
+
 ### QQ音乐
 QQ音乐因为文档中没有提供登录的接口，而是提供了添加cookie的接口，可以按照将登录后的cookie信息复制出来如下操作进行添加cookie
 
