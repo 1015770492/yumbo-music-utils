@@ -982,6 +982,12 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
         setParameter(parameter);// 传入json类型的参数
         return getResult();
     }
+    @MusicService(url = "/cloudsearch")
+    public JSONObject cloudsearch(JSONObject parameter) {
+        setCurrentRunningMethod("cloudsearch");
+        setParameter(parameter);// 传入json类型的参数
+        return getResult();
+    }
 
     /**
      * 默认搜索关键词

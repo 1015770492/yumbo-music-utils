@@ -6,7 +6,7 @@
     <!--当前项目的gav坐标-->
     <groupId>top.yumbo.music</groupId>
     <artifactId>yumbo-music-utils</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging><!--打包方式 jar/war/pom-->
     <name>yumbo-music-utils</name><!--项目名称-->
     <description>netease-cloud-music and qq-music api-utils</description>
