@@ -37,6 +37,9 @@ gav坐标如下
 
 #### NeteaseCloudMusicInfo类和 QQMusicInfo类的特点
 根据音乐api文档进行的封装
+方法的命名采用驼峰命名。
+例如文档中的接口是：/search/hot，则对应的方法就是：searchHot
+
 ***
 ### 网易云音乐
 ##### 例如网易云音乐的 登录接口
