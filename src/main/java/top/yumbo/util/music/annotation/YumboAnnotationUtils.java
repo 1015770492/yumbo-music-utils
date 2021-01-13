@@ -9,6 +9,8 @@ import top.yumbo.util.music.musicAbstract.AbstractMusic;
 import top.yumbo.util.music.musicImpl.netease.NeteaseCloudMusicInfo;
 
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class YumboAnnotationUtils {
@@ -54,7 +56,7 @@ public class YumboAnnotationUtils {
                 final String url = annotation.url(); // 得到注解上的url
                 final MusicEnum musicEnum = abstractMusic.getMusicEnum();
 
-                final String fullPathURL;
+                String fullPathURL;
                 if (musicEnum == MusicEnum.OtherMusic) {
                     final String serverAddress = annotation.serverAddress();
                     fullPathURL = MusicEnum.OtherMusic.getFullPathURL(serverAddress, url);
@@ -78,6 +80,8 @@ public class YumboAnnotationUtils {
                 // 发送请求得到返回来的数据
                 try {
                     System.out.println("绝对路径:" + fullPathURL);
+                    final long time = Timestamp.valueOf(LocalDateTime.now()).getTime();
+                    fullPathURL += "?timestamp="+time;// 带上时间戳
                     final ResponseEntity<String> responseEntity = new RestTemplate().exchange(fullPathURL, HttpMethod.POST, stringHttpEntity, String.class);
                     abstractMusic.setResult(JSONObject.parseObject(responseEntity.getBody()));// 直接替换
                     final HttpHeaders headers = responseEntity.getHeaders();

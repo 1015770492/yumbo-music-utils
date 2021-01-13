@@ -6,7 +6,7 @@
     <!--当前项目的gav坐标-->
     <groupId>top.yumbo.music</groupId>
     <artifactId>yumbo-music-utils</artifactId>
-    <version>1.1</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging><!--打包方式 jar/war/pom-->
     <name>yumbo-music-utils</name><!--项目名称-->
     <description>netease-cloud-music and qq-music api-utils</description>
@@ -24,11 +24,11 @@
         <developer>
             <name>yujinhua</name>
             <email>1015770492@qq.com</email>
-            <url>${projectUrl}</url>
+            <url>https://github.com/1015770492/yumbo-music-utils</url>
         </developer>
     </developers>
     <!--以下部分内容不需要修改，直接复制咱贴即可-->
-    <url>${projectUrl}</url>
+    <url>https://github.com/1015770492/yumbo-music-utils</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -38,9 +38,9 @@
     </licenses>
     <scm>
         <!-- 采用projectUrl变量代替这个值，方便给重复利用这个配置，也就是上面的标签替换一下值就行 -->
-        <connection>${projectUrl}</connection>
-        <developerConnection>${projectUrl}</developerConnection>
-        <url>${projectUrl}</url>
+        <connection>https://github.com/1015770492/yumbo-music-utils</connection>
+        <developerConnection>https://github.com/1015770492/yumbo-music-utils</developerConnection>
+        <url>https://github.com/1015770492/yumbo-music-utils</url>
     </scm>
     <distributionManagement>
         <snapshotRepository>
@@ -64,8 +64,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <!--打包源码的插件-->

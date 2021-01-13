@@ -30,7 +30,21 @@ public enum MusicEnum {
     };
     public abstract String getFullPathURL(String serverAddress,String relativePath);
 
-    public static final String BASE_URL_163Music = "http://yumbo.top:3000";   // 网易云api服务器地址
-    public static final String BASE_URL_QQMusic = "http://yumbo.top:3300";    // qq音乐api服务器地址
+    public static String BASE_URL_163Music = "http://yumbo.top:3000";   // 默认的网易云api服务器地址
+    public static String BASE_URL_QQMusic = "http://yumbo.top:3300";    // 默认的qq音乐api服务器地址
 
+    /**
+     * 传入自定义的网易云api服务器地址
+     * @param BASE_URL_163Music 服务器地址
+     */
+    public static void setBASE_URL_163Music(String BASE_URL_163Music) {
+        MusicEnum.BASE_URL_163Music = BASE_URL_163Music;
+    }
+    /**
+     * 传入自定义的qq音乐api服务器地址
+     * @param BASE_URL_QQMusic 服务器地址
+     */
+    public static void setBASE_URL_QQMusic(String BASE_URL_QQMusic) {
+        MusicEnum.BASE_URL_QQMusic = BASE_URL_QQMusic;
+    }
 }

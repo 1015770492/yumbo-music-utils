@@ -30,7 +30,7 @@ gav坐标如下
 <dependency>
   <groupId>top.yumbo.music</groupId>
   <artifactId>yumbo-music-utils</artifactId>
-  <version>1.1</version>
+  <version>1.2.1</version>
 </dependency>
 ```
 ### 第二步、使用NeteaseCloudMusicInfo类和 QQMusicInfo类调用封装好的方法
@@ -221,3 +221,11 @@ public class OtherMusicDemo {
 
 }
 ```
+### 关于更改api服务器地址说明
+通过枚举对象MusicEnum的set方法进行更改即可(静态方法)
+下面连个方法分别是更改网易云音乐和qq音乐默认api服务器的两个方法
+```
+MusicEnum.setBASE_URL_163Music("http://com.example:3000")
+MusicEnum.setBASE_URL_QQMusic("http://com.example:3300")
+```
+
