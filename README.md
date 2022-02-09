@@ -1,3 +1,6 @@
+CSDN 博客 ：[Java版本中最好用的网易云音乐、qq音乐api请求工具，你还在忙于如何使用java调音乐api？来看下这里的实现](https://yumbo.blog.csdn.net/article/details/112331151)
+作者：诗水人间
+
 ### 已经封装好网易云音乐api和QQ音乐api 的所有API，只需要调用我封装好的类就可以快捷调用文档获取数据
 ### 项目说明：
 本项目中使用到的依赖：
