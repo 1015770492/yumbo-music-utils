@@ -6,7 +6,7 @@
     <!--当前项目的gav坐标-->
     <groupId>top.yumbo.music</groupId>
     <artifactId>yumbo-music-utils</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.3</version>
     <packaging>jar</packaging><!--打包方式 jar/war/pom-->
     <name>yumbo-music-utils</name><!--项目名称-->
     <description>netease-cloud-music and qq-music api-utils</description>
@@ -59,6 +59,30 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        top.yumbo.util.NeteaseCloudMusicDemo
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- 编译插件，设置源码以及编译的jdk版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -135,23 +159,38 @@
     </build>
     <!--以上部分都不需要进行修改-->
     <dependencies>
-        <!--        &lt;!&ndash; 爬虫框架jsoup &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.jsoup</groupId>-->
-        <!--            <artifactId>jsoup</artifactId>-->
-        <!--            <version>1.13.1</version>-->
-        <!--        </dependency>-->
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.selenium</groupId>-->
+<!--            <artifactId>selenium-java</artifactId>-->
+<!--            <version>4.0.0-alpha-7</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.commons/commons-email &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-email</artifactId>-->
+<!--            <version>1.5</version>-->
+<!--        </dependency>-->
+
+        <!-- 爬虫框架jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.3</version>
+        </dependency>
         <!-- spring-web依赖，这个工具需要使用里面的RestTemplate工具 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.3.2</version>
+            <version>5.3.14</version>
         </dependency>
         <!-- fastjson 工具类 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.75</version>
+            <version>1.2.79</version>
         </dependency>
         <!-- lombok -->
         <dependency>

@@ -11,14 +11,17 @@ import top.yumbo.util.music.musicAbstract.AbstractMusic;
  */
 public class NeteaseCloudMusicInfo extends AbstractMusic {
 
-    /**
-     * 非静态代码块，构建实例对象的时候就会复制一遍，方便并发的处理（用空间换效率）
-     * 每次需要使用到这个服务都创建一个这样的对象
-     * 设置当前音乐为枚举网易云音乐
-     */
+
     {
+        /**
+         * 非静态代码块，构建实例对象的时候就会复制一遍，方便并发的处理（用空间换效率）
+         * 每次需要使用到这个服务都创建一个这样的对象
+         * 设置当前音乐为枚举网易云音乐
+         */
         super.setMusicEnum(MusicEnum.NeteaseCloudMusic);
     }
+
+
     /**
      * 执封装get方法,因为每一个方法都需要发请求返回json数据,为了实现懒加载这里将反射操作放在了get方法中
      */
@@ -27,6 +30,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
         YumboAnnotationUtils.sendRequestAutowiredJson(this); // 调用反射发送请求注入数据通过下面的return返回
         return super.getResult();
     }
+
     /**
      * 手机登录
      * <p>
@@ -982,6 +986,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
         setParameter(parameter);// 传入json类型的参数
         return getResult();
     }
+
     @MusicService(url = "/cloudsearch")
     public JSONObject cloudsearch(JSONObject parameter) {
         setCurrentRunningMethod("cloudsearch");
@@ -2629,7 +2634,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 电台 - 详情
      * 说明 : 登录后调用此接口 , 传入rid, 可获得对应电台的详情介绍
-     *
+     * <p>
      * 必选参数 : rid: 电台 的 id
      */
     @MusicService(url = "/dj/detail")
@@ -2642,9 +2647,9 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 电台 - 节目
      * 说明 : 登录后调用此接口 , 传入rid, 可查看对应电台的电台节目以及对应的 id, 需要 注意的是这个接口返回的 mp3Url 已经无效 , 都为 null, 但是通过调用 /song/url 这 个接口 , 传入节目 id 仍然能获取到节目音频 , 如 /song/url?id=478446370 获取代 码时间的一个节目的音频
-     *
+     * <p>
      * 必选参数 : rid: 电台 的 id
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
@@ -2660,7 +2665,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 电台 - 节目详情
      * 说明 : 调用此接口传入电台节目id,可获得电台节目详情
-     *
+     * <p>
      * 必选参数 : id: 电台节目 的 id
      */
     @MusicService(url = "/dj/program/detail")
@@ -2673,7 +2678,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 通知 - 私信
      * 说明 : 登录后调用此接口 ,可获取私信
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
@@ -2688,7 +2693,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 发送私信
      * 说明 : 登录后调用此接口 , 传入用户 id 和要发送的信息, 可以发送私信,返回内容为历史私信,包含带歌单的私信信息(注:不能发送私信给自己)
-     *
+     * <p>
      * 必选参数 :
      * user_ids : 用户 id,多个需用逗号隔开
      * msg : 要发送的信息
@@ -2703,7 +2708,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 发送私信音乐
      * 说明 : 登录后调用此接口 , 传入用户 id 和要发送的信息,音乐id, 可以发送音乐私信,返回内容为历史私信
-     *
+     * <p>
      * 必选参数 :
      * user_ids : 用户 id,多个需用逗号隔开
      * msg : 要发送的信息
@@ -2718,7 +2723,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 发送私信(带歌单)
      * 说明 : 登录后调用此接口 , 传入用户 id 和要发送的信息和歌单 id, 可以发送带歌单的私信(注:不能发送重复的歌单)
-     *
+     * <p>
      * 必选参数 :
      * user_ids : 用户 id,多个需用逗号隔开
      * msg : 要发送的信息
@@ -2743,7 +2748,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 私信内容
      * 说明 : 登录后调用此接口 , 可获取私信内容
-     *
+     * <p>
      * 必选参数 : uid : 用户 id
      * 可选参数 : limit : 返回数量 , 默认为 30
      * before : 分页参数,取上一页最后一项的 time 获取下一页数据
@@ -2758,9 +2763,9 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 通知 - 评论
      * 说明 : 登录后调用此接口 ,可获取评论
-     *
+     * <p>
      * 必选参数 : uid: 用户 的 id，只能和登录账号的 id 一致
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * before : 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
@@ -2775,7 +2780,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 通知 - @我
      * 说明 : 登录后调用此接口 ,可获取@我数据
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
@@ -2790,7 +2795,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 通知 - 通知
      * 说明 : 登录后调用此接口 ,可获取通知
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * lasttime : 返回数据的 time ,默认-1,传入上一次返回结果的 time,将会返回下一页的数据
@@ -2815,7 +2820,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 数字专辑-新碟上架
      * 说明 : 调用此接口 ,可获取数字专辑-新碟上架
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
@@ -2830,7 +2835,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 数字专辑&数字单曲-榜单
      * 说明 : 调用此接口 ,可获取数字专辑&数字单曲-榜单
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
@@ -2847,7 +2852,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 数字专辑-语种风格馆
      * 说明 : 调用此接口 ,可获取语种风格馆数字专辑列表
-     *
+     * <p>
      * 可选参数 :
      * limit : 返回数量 , 默认为 30
      * offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
@@ -2883,7 +2888,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 购买数字专辑
      * 说明 : 登录后调用此接口 ,可获取购买数字专辑的地址,把地址生成二维码后,可扫描购买专辑
-     *
+     * <p>
      * 必选参数 :
      * id : 专辑的 id
      * payment : 支付方式， 0 为支付宝 3 为微信
@@ -2970,7 +2975,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
      * 云贝完成任务
      * 必选参数 :
      * userTaskId : 任务id
-     *
+     * <p>
      * 可选参数 :
      * depositCode: 任务depositCode
      */
@@ -2984,7 +2989,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 云贝收入
      * 说明 :登录后调用此接口可获取云贝收入
-     *
+     * <p>
      * 可选参数 :
      * limit: 取出评论数量 , 默认为 10
      * offset: 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*10, 其中 10 为 limit 的值
@@ -2999,7 +3004,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 云贝支出
      * 说明 :登录后调用此接口可获取云贝支出
-     *
+     * <p>
      * 可选参数 :
      * limit: 取出评论数量 , 默认为 10
      * offset: 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*10, 其中 10 为 limit 的值
@@ -3014,7 +3019,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 关注歌手新歌
      * 说明 :登录后调用此接口可获取关注歌手新歌
-     *
+     * <p>
      * 可选参数 :
      * limit: 取出评论数量 , 默认为 20
      * before: 上一页数据返回的publishTime的数据
@@ -3029,7 +3034,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * 关注歌手新MV
      * 说明 :登录后调用此接口可获取关注歌手新MV
-     *
+     * <p>
      * 可选参数 :
      * limit: 取出评论数量 , 默认为 20
      * before: 上一页数据返回的publishTime的数据
@@ -3044,9 +3049,9 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
     /**
      * batch批量请求接口
      * 说明 : 登录后调用此接口 ,传入接口和对应原始参数(原始参数非文档里写的参数,需参考源码),可批量请求接口
-     *
+     * <p>
      * 接口地址 : /batch
-     *
+     * <p>
      * 调用例子 : 使用GET方式:/batch?/api/v2/banner/get={"clientType":"pc"}
      * 使用POST方式传入参数:{ "/api/v2/banner/get": {"clientType":"pc"} }
      */
@@ -3056,9 +3061,6 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
         setParameter(parameter);// 传入json类型的参数
         return getResult();
     }
-
-
-
 
 
 }

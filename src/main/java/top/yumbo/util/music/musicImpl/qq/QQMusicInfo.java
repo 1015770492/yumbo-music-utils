@@ -21,6 +21,7 @@ public class QQMusicInfo extends AbstractMusic {
     {
         setMusicEnum(MusicEnum.QQMusic);// 设置为QQ音乐的枚举
     }
+
     /**
      * 封装get方法,因为每一个方法都需要发请求返回json数据,为了实现懒加载这里将反射操作放在了get方法中
      */

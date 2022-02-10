@@ -14,17 +14,23 @@ CSDN 博客 ：[Java版本中最好用的网易云音乐、qq音乐api请求工�
 本项目中使用到的依赖：
 spring-web、lombok、fastjson
 ```xml
+<!-- 爬虫框架jsoup -->
+<dependency>
+    <groupId>org.jsoup</groupId>
+    <artifactId>jsoup</artifactId>
+    <version>1.14.3</version>
+</dependency>
 <!-- spring-web依赖，这个工具需要使用里面的RestTemplate工具 -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-web</artifactId>
-    <version>5.3.2</version>
+    <version>5.3.14</version>
 </dependency>
 <!-- fastjson 工具类 -->
 <dependency>
     <groupId>com.alibaba</groupId>
     <artifactId>fastjson</artifactId>
-    <version>1.2.75</version>
+    <version>1.2.79</version>
 </dependency>
 <!-- lombok -->
 <dependency>
@@ -41,7 +47,7 @@ gav坐标如下
 <dependency>
   <groupId>top.yumbo.music</groupId>
   <artifactId>yumbo-music-utils</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.3</version>
 </dependency>
 ```
 ### 第二步、使用NeteaseCloudMusicInfo类和 QQMusicInfo类调用封装好的方法

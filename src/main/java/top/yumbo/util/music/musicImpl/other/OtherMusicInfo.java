@@ -14,20 +14,22 @@ public class OtherMusicInfo extends AbstractMusic {
     {
         setMusicEnum(MusicEnum.OtherMusic);
     }
+
     @Override
     public JSONObject getResult() {
         YumboAnnotationUtils.sendRequestAutowiredJson(this);
         return super.getResult();
     }
 
-    @MusicService(url = "/has/parameter/method",serverAddress = "http://com.example:6666")
-    public JSONObject hasParameterMethod(JSONObject parameter){
+    @MusicService(url = "/has/parameter/method", serverAddress = "http://com.example:6666")
+    public JSONObject hasParameterMethod(JSONObject parameter) {
         setCurrentRunningMethod("hasParameterMethod");
         setParameter(parameter);// 传入参数
         return getResult();
     }
-    @MusicService(url = "/no/parameter/method",serverAddress = "http://com.example:6666")
-    public JSONObject noParameterMethod(){
+
+    @MusicService(url = "/no/parameter/method", serverAddress = "http://com.example:6666")
+    public JSONObject noParameterMethod() {
         setCurrentRunningMethod("noParameterMethod");
         // 不需要传参
         return getResult();
