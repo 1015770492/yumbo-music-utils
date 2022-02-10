@@ -43,12 +43,25 @@ spring-web、lombok、fastjson
 
 ### 第一步、引入maven依赖
 gav坐标如下
+
 ```xml
 <dependency>
   <groupId>top.yumbo.music</groupId>
   <artifactId>yumbo-music-utils</artifactId>
   <version>1.2.3</version>
 </dependency>
+```
+仓库如果找不到，请使用新版的阿里云镜像仓库地址
+```xml
+<repositories>
+    <repository>
+        <id>alimaven</id>
+        <name>aliyun maven</name>
+        <!-- 新版本的aliyun镜像仓库地址建议mirrors中也修改，
+             如果已经改好了，则可以去掉这个repositories -->
+        <url>https://maven.aliyun.com/repository/central</url>
+    </repository>
+</repositories>
 ```
 ### 第二步、使用NeteaseCloudMusicInfo类和 QQMusicInfo类调用封装好的方法
 
