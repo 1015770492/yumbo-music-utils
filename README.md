@@ -93,9 +93,9 @@ public class NeteaseCloudMusicDemo {
     public static void main(String[] args) {
         final NeteaseCloudMusicInfo neteaseCloudMusicInfo = new NeteaseCloudMusicInfo();// 得到封装网易云音乐信息的工具类
         final JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phone","15727742367");
-        jsonObject.put("password","yjh123456");
-        final JSONObject login = neteaseCloudMusicInfo.loginCellphone(jsonObject);
+        jsonObject.put("email","xxx@163.com");
+        jsonObject.put("password","xxx");
+        final JSONObject login = neteaseCloudMusicInfo.login(jsonObject);
         System.out.println(login);
     }
 }
@@ -124,9 +124,9 @@ public class NeteaseCloudMusicDemo {
     public static void main(String[] args) {
         final NeteaseCloudMusicInfo neteaseCloudMusicInfo = new NeteaseCloudMusicInfo();// 得到封装网易云音乐信息的工具类
         final JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phone", "15727742367");
-        jsonObject.put("password", "yjh123456");
-        final JSONObject login = neteaseCloudMusicInfo.loginCellphone(jsonObject);
+        jsonObject.put("email", "xxx@163.com");
+        jsonObject.put("password", "xxx");
+        final JSONObject login = neteaseCloudMusicInfo.login(jsonObject);
         System.out.println(login); // 打印登录返回的信息
         final Object uid = login.getJSONObject("account").get("id");// 获取uid
         System.out.println(uid);// 打印uid

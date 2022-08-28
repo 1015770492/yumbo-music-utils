@@ -1,6 +1,7 @@
 package top.yumbo.util;
 
 import com.alibaba.fastjson.JSONObject;
+import top.yumbo.util.music.MusicEnum;
 import top.yumbo.util.music.musicImpl.netease.NeteaseCloudMusicInfo;
 
 
@@ -10,11 +11,11 @@ public class NeteaseCloudMusicDemo {
 
     public static void main(String[] args) {
 
-
+        MusicEnum.setBASE_URL_163Music("http://localhost:3000");
         final JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phone", "18279774965");
-        jsonObject.put("password", "qvAUEmG2ABtXeCk");
-        final JSONObject login = neteaseCloudMusicInfo.loginCellphone(jsonObject);
+        jsonObject.put("email", "");
+        jsonObject.put("password", "");
+        final JSONObject login = neteaseCloudMusicInfo.login(jsonObject);
 
         System.out.println(login);
 
