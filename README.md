@@ -40,6 +40,13 @@ spring-web、lombok、fastjson
     <scope>provided</scope>
 </dependency>
 ```
+NeteaseCloudMusicInfo 类的方法上自带文档，文档为2021年的接口文档。与在线文档对应（在线文档有更新的话自行更新）
+
+![Netease Music](https://img-blog.csdnimg.cn/73ce36b3f3ac43608c368834378f2ce5.png)
+
+QQMusicInfo 也一样有对应的方法标注文档。
+![QQ Music](https://img-blog.csdnimg.cn/b5c165c6b1b545f5ac10ef2bc7351abd.png)
+
 
 ### 第一步、引入maven依赖
 gav坐标如下
