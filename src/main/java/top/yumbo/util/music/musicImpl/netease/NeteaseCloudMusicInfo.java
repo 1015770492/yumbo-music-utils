@@ -1161,7 +1161,7 @@ public class NeteaseCloudMusicInfo extends AbstractMusic {
      * 最近播放的视频
      * 说明 : 调用此接口 , 可获取最近播放的视频 ( 需要登录 )
      */
-    @MusicService(url = "")
+    @MusicService(url = "/playlist/video/recent")
     public JSONObject playlistVideoRecent() {
         setCurrentRunningMethod("playlistVideoRecent");
         return getResult();
